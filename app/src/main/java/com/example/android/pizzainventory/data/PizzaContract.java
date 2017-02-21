@@ -5,9 +5,9 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class PizzaContract {
-    private static final String CONTENT_AUTHORITY = "com.example.android.pizzainventory";
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-    private static final String PATH_PIZZAS = "pizzas";
+    public static final String CONTENT_AUTHORITY = "com.example.android.pizzainventory";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final String PATH_PIZZAS = "pizzas";
 
     private PizzaContract() {
     }
