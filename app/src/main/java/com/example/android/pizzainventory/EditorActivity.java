@@ -1,8 +1,6 @@
 package com.example.android.pizzainventory;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,11 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 
 public class EditorActivity extends AppCompatActivity {
@@ -57,32 +52,8 @@ public class EditorActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 cameraUri = getPhotoFileUri("product.jpg");
-                Bitmap takenImage = BitmapFactory.decodeFile(cameraUri.getPath());
-                File f = new File(getApplicationContext().getCacheDir(), "product.jpg");
-                try {
-                    boolean b = f.createNewFile();
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
-                Bitmap resizedBitmap = Bitmap.createScaledBitmap(takenImage, 2000, 2000, false);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                resizedBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-                byte[] bitmapdata = bos.toByteArray();
-                try {
-                    fos = new FileOutputStream(f);
-                    fos.write(bitmapdata);
-                    fos.flush();
-                    fos.close();
-                }
-                catch(FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
                 ImageView ivPreview = (ImageView) findViewById(R.id.camerapic);
-                ivPreview.setImageURI(Uri.fromFile(f));
+                ivPreview.setImageURI(cameraUri);
             } else {
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
