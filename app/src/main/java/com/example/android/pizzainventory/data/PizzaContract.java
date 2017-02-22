@@ -27,7 +27,6 @@ public class PizzaContract {
         public static final String COLUMN_PRODUCT_NAME = "Name";
         public static final String COLUMN_PRODUCT_PRICE = "Price";
         public static final String COLUMN_PRODUCT_QUANTITY = "Quantity";
-        public static final String COLUMN_PRODUCT_SALES = "Sales";
         public static final String COLUMN_PRODUCT_PHOTO = "Photo";
 
 
