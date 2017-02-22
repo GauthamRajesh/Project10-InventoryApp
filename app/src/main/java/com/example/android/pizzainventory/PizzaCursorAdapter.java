@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.TextView;
-
-import com.example.android.pizzainventory.data.PizzaContract;
 
 
 public class PizzaCursorAdapter extends CursorAdapter {
@@ -21,17 +18,6 @@ public class PizzaCursorAdapter extends CursorAdapter {
     }
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
-        TextView priceTextView = (TextView) view.findViewById(R.id.price);
-        int nameColumnIndex = cursor.getColumnIndex(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME);
-        int quantityColumnIndex = cursor.getColumnIndex(PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY);
-        int priceColumnIndex = cursor.getColumnIndex(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE);
-        String productName = cursor.getString(nameColumnIndex);
-        String quantity = cursor.getString(quantityColumnIndex);
-        String price = cursor.getString(priceColumnIndex);
-        nameTextView.setText(productName);
-        quantityTextView.setText(quantity);
-        priceTextView.setText(price);
+        /* Working on this part */
     }
 }
