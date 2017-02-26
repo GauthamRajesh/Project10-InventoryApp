@@ -10,4 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.pizzainventory.PizzaDetail">
 
+    <TextView
+        android:id="@+id/detail_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Name: "
+        android:fontFamily="sans-serif-light"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        tools:text="Gi"
+        android:layout_toRightOf="@+id/detail_name_label"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"/>
 </RelativeLayout>
