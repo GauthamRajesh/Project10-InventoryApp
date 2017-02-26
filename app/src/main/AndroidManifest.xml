@@ -25,8 +25,7 @@
             android:exported="false" />
 
         <activity android:name=".EditorActivity" />
-
+        <activity android:name=".PizzaDetail"></activity>
     </application>
-
 
 </manifest>

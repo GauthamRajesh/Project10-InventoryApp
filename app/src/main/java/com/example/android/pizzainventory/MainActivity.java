@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent productDetail = new Intent(MainActivity.this, /* product detail will be created soon */);
+                Intent productDetail = new Intent(MainActivity.this, EditorActivity.class);
                 Uri currentPizza = ContentUris.withAppendedId(PizzaContract.PizzaEntry.CONTENT_URI, l);
                 productDetail.setData(currentPizza);
                 startActivity(productDetail);
