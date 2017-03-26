@@ -12,13 +12,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 
 public class EditorActivity extends AppCompatActivity {
     Uri galleryUri;
     Uri cameraUri;
-    FileOutputStream fos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

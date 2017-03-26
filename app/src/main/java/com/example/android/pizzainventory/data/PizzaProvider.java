@@ -60,7 +60,7 @@ public class PizzaProvider extends ContentProvider {
         }
     }
     @Override
-    public int update(Uri uri, ContentValues contentValues, String selection,
+    public int update(@NonNull Uri uri, ContentValues contentValues, String selection,
                       String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
