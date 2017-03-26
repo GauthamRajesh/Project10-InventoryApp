@@ -1,7 +1,11 @@
 package com.example.android.pizzainventory;
 
+import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +17,7 @@ import android.widget.ListView;
 import com.example.android.pizzainventory.data.PizzaContract;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +43,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(productDetail);
             }
         });
+        getLoaderManager().initLoader(0, null, this);
+    }
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {
+                PizzaContract.PizzaEntry._ID,
+                PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME,
+                PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE,
+                PizzaContract.PizzaEntry.COLUMN_PRODUCT_SALES,
+                PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY,
+                PizzaContract.PizzaEntry.COLUMN_PRODUCT_PHOTO
+        };
+        return new CursorLoader(this, PizzaContract.PizzaEntry.CONTENT_URI, projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

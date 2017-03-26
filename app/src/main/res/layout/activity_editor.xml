@@ -10,26 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.pizzainventory.EditorActivity"
     android:orientation="vertical">
-    <!-- Overview category -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <!-- Label -->
         <TextView
             android:text="@string/category_overview"
             style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:paddingLeft="4dp"
             android:orientation="vertical">
-
-            <!-- Name field -->
             <EditText
                 android:id="@+id/name"
                 android:hint="Product Name"
@@ -47,6 +40,7 @@
                 style="@style/EditorFieldStyle"
                 android:inputType="numberDecimal"/>
             <EditText
+                android:id="@+id/sales"
                 android:hint="Sold"
                 style="@style/EditorFieldStyle"
                 android:inputType="number"/>
@@ -86,4 +80,12 @@
                 android:onClick="takePic"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Save"
+        android:onClick="saveProduct">
+    </Button>
+    </LinearLayout>

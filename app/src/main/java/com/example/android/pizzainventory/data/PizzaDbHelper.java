@@ -18,7 +18,7 @@ public class PizzaDbHelper extends SQLiteOpenHelper {
                 + PizzaContract.PizzaEntry.COLUMN_PRODUCT_PHOTO + " TEXT NOT NULL, "
                 + PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE + " FLOAT NOT NULL DEFAULT 0, "
                 + PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY + " INTEGER NOT NULL, "
-                + PizzaContract.PizzaEntry.COLUMN_PRODUCT_SALES + " INTEGER NOT NULL DEFAULT 0";
+                + PizzaContract.PizzaEntry.COLUMN_PRODUCT_SALES + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(SQL_CREATE_PIZZA_TABLE);
 
     }

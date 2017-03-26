@@ -18,7 +18,7 @@ public class PizzaProvider extends ContentProvider {
         sUriMatcher.addURI(PizzaContract.CONTENT_AUTHORITY, PizzaContract.PATH_PIZZAS,  ALL_PIZZAS);
         sUriMatcher.addURI(PizzaContract.CONTENT_AUTHORITY, PizzaContract.PATH_PIZZAS + "/#", SPECIFIC_PIZZA);
     }
-    private PizzaDbHelper mDbHelper;
+    private static PizzaDbHelper mDbHelper;
     @Override
     public boolean onCreate() {
         mDbHelper = new PizzaDbHelper(getContext());
@@ -120,18 +120,26 @@ public class PizzaProvider extends ContentProvider {
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
     }
-    private Uri insertPizza(Uri uri, ContentValues values) {
+    public Uri insertPizza(Uri uri, ContentValues values) {
         String name = values.getAsString(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME);
-        Integer price = values.getAsInteger(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE);
-        Integer quantity = values.getAsInteger(PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY);
+        double price = values.getAsDouble(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE);
+        int quantity = values.getAsInteger(PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY);
+        int sales = values.getAsInteger(PizzaContract.PizzaEntry.COLUMN_PRODUCT_SALES);
+        String photo = values.getAsString(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PHOTO);
         if (name == null) {
             throw new IllegalArgumentException("Name required");
         }
-        if (price != null && price < 0) {
+        if (price < 0) {
             throw new IllegalArgumentException("Valid price required");
         }
-        if (quantity == null) {
+        if (quantity < 0) {
             throw new IllegalArgumentException("Valid quantity required");
+        }
+        if (sales < 0) {
+            throw new IllegalArgumentException("Valid sales required");
+        }
+        if(photo == null || photo.equals("")) {
+            throw new IllegalArgumentException("Valid photo required");
         }
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         long newRowId = db.insert(PizzaContract.PizzaEntry.TABLE_NAME, null, values);
