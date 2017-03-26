@@ -13,17 +13,101 @@
     <TextView
         android:id="@+id/detail_name_label"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:text="Name: "
-        android:fontFamily="sans-serif-light"
-        android:textSize="20sp"/>
-
+        style="@style/detailStyle"/>
     <TextView
         android:id="@+id/detail_name"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        tools:text="Gi"
+        android:layout_height="wrap_content"
+        tools:text="Product Name"
         android:layout_toRightOf="@+id/detail_name_label"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-light"/>
+        style="@style/detailStyle"/>
+    <TextView
+        android:id="@+id/detail_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_name_label"
+        android:text="Price: "
+        style="@style/detailStyle"/>
+    <TextView
+        android:id="@+id/detail_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/detail_price_label"
+        android:layout_below="@id/detail_name_label"
+        style="@style/detailStyle"
+        tools:text="Price"/>
+    <TextView
+        android:id="@+id/detail_quantity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/detailStyle"
+        android:layout_below="@id/detail_price_label"
+        android:text="Quantity: "/>
+    <TextView
+        android:id="@+id/detail_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/detail_quantity_label"
+        android:layout_below="@id/detail_price_label"
+        tools:text="Quantity"
+        style="@style/detailStyle"/>
+    <Button
+        android:id="@+id/increaseProduct"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBaseline="@+id/detail_quantity"
+        android:layout_alignBottom="@+id/detail_quantity"
+        android:layout_toRightOf="@+id/detail_quantity"
+        android:layout_toEndOf="@+id/detail_quantity"
+        android:onClick="addProduct"
+        android:text="+"/>
+    <Button
+        android:id="@+id/decreaseProduct"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/increaseProduct"
+        android:layout_toEndOf="@+id/increaseProduct"
+        android:layout_alignBaseline="@+id/detail_quantity"
+        android:layout_alignBottom="@+id/detail_quantity"
+        android:onClick="removeProduct"
+        android:text="-"/>
+    <TextView
+        android:id="@+id/detail_sold_label"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        style="@style/detailStyle"
+        android:layout_below="@id/detail_quantity_label"
+        android:text="Sold: "
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/detail_sold"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:text="Sold"
+        style="@style/detailStyle"
+        android:layout_alignBaseline="@+id/detail_sold_label"
+        android:layout_alignBottom="@+id/detail_sold_label"
+        android:layout_alignRight="@+id/detail_price"
+        android:layout_alignEnd="@+id/detail_price" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Image: "
+        android:layout_marginTop="21dp"
+        android:id="@+id/detail_image_label"
+        style="@style/detailStyle"
+        android:layout_below="@+id/increaseProduct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/detail_image_label"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
