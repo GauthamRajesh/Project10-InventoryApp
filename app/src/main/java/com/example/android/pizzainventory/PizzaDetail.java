@@ -15,11 +15,12 @@ import com.example.android.pizzainventory.data.PizzaContract;
 public class PizzaDetail extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     Uri photoUri;
-    Uri productUri = getIntent().getData();
+    Uri productUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizza_detail);
+        productUri = getIntent().getData();
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
