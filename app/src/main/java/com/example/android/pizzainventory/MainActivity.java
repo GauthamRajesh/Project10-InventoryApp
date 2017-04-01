@@ -13,12 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.example.android.pizzainventory.data.PizzaContract;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    PizzaCursorAdapter p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
         ListView l = (ListView) findViewById(R.id.list_view);
-        PizzaCursorAdapter p = new PizzaCursorAdapter(this, null);
+        p = new PizzaCursorAdapter(this, null);
         l.setAdapter(p);
+        RelativeLayout emptyView = (RelativeLayout) findViewById(R.id.empty_view);
+        l.setEmptyView(emptyView);
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent productDetail = new Intent(MainActivity.this, EditorActivity.class);
+                Intent productDetail = new Intent(MainActivity.this, PizzaDetail.class);
                 Uri currentPizza = ContentUris.withAppendedId(PizzaContract.PizzaEntry.CONTENT_URI, l);
                 productDetail.setData(currentPizza);
                 startActivity(productDetail);
@@ -60,11 +63,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        p.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        p.swapCursor(null);
     }
 }
