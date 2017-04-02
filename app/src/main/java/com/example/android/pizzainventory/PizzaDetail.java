@@ -1,12 +1,13 @@
 package com.example.android.pizzainventory;
 
-import android.support.v4.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizza_detail);
         productUri = getIntent().getData();
+        getSupportLoaderManager().initLoader(0, null, this);
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
@@ -43,7 +45,10 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
             name.setText(nameString);
             quantity.setText(Integer.toString(quantityNum));
             price.setText(Float.toString(priceNum));
+            String salesString = Integer.toString(salesNum);
+            Log.e("PizzaDetail", "salesString: " + salesString);
             sales.setText(Integer.toString(salesNum));
+            Log.e("PizzaDetail", "photo Uri: " + photoString);
             if(!photoString.isEmpty()) {
                 photoUri = Uri.parse(photoString);
                 photo.setImageURI(photoUri);

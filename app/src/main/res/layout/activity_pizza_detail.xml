@@ -75,8 +75,8 @@
         android:text="-"/>
     <TextView
         android:id="@+id/detail_sold_label"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         style="@style/detailStyle"
         android:layout_below="@id/detail_quantity_label"
         android:text="Sold: "
@@ -84,30 +84,29 @@
 
     <TextView
         android:id="@+id/detail_sold"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="Sold"
         style="@style/detailStyle"
         android:layout_alignBaseline="@+id/detail_sold_label"
         android:layout_alignBottom="@+id/detail_sold_label"
-        android:layout_alignRight="@+id/detail_price"
-        android:layout_alignEnd="@+id/detail_price" />
+        android:layout_toRightOf="@+id/detail_sold_label"
+        android:layout_toEndOf="@+id/detail_sold_label" />
 
     <TextView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="Image: "
-        android:layout_marginTop="21dp"
         android:id="@+id/detail_image_label"
         style="@style/detailStyle"
-        android:layout_below="@+id/increaseProduct"
+        android:layout_below="@+id/detail_sold_label"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
         android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/detail_image_label"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@id/detail_image_label" />
 </RelativeLayout>
