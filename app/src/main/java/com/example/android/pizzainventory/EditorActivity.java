@@ -1,11 +1,14 @@
 package com.example.android.pizzainventory;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +61,11 @@ public class EditorActivity extends AppCompatActivity {
         }
         else if(requestCode == 0 && resultCode == RESULT_OK && data != null) {
             picUri = data.getData();
+            int permissionCheck = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+            if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Granted permisson", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public void saveProduct(View v) {
