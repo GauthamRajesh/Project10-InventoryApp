@@ -9,8 +9,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 
-public class PizzaCursorAdapter extends CursorAdapter {
-    public PizzaCursorAdapter(Context c, Cursor cursor) {
+class PizzaCursorAdapter extends CursorAdapter {
+    PizzaCursorAdapter(Context c, Cursor cursor) {
         super(c, cursor, 0);
     }
     @Override
@@ -22,11 +22,11 @@ public class PizzaCursorAdapter extends CursorAdapter {
         TextView name = (TextView) view.findViewById(R.id.name);
         TextView quantity = (TextView) view.findViewById(R.id.quantity);
         TextView price = (TextView) view.findViewById(R.id.price);
-        String nameString = cursor.getString(cursor.getColumnIndex("Name"));
-        int quantity_int = cursor.getInt(cursor.getColumnIndex("Quantity"));
-        double price_double = cursor.getInt(cursor.getColumnIndex("Price"));
-        name.setText(nameString);
-        quantity.setText(String.valueOf(quantity_int));
-        price.setText(String.valueOf(price_double));
+        String nameString = cursor.getString(cursor.getColumnIndex(context.getString(R.string.name_column_index)));
+        int quantity_int = cursor.getInt(cursor.getColumnIndex(context.getString(R.string.quantity_column_index)));
+        double price_double = cursor.getInt(cursor.getColumnIndex(context.getString(R.string.price_column_index)));
+        name.setText(" " + nameString);
+        quantity.setText(" " + String.valueOf(quantity_int));
+        price.setText(" " + String.valueOf(price_double));
     }
 }

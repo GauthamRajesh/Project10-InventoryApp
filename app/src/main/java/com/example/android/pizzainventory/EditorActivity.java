@@ -34,7 +34,7 @@ public class EditorActivity extends AppCompatActivity {
     }
     public void takePic(View v) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("product.jpg"));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri(getString(R.string.picFile)));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, 1);
         }
@@ -42,9 +42,9 @@ public class EditorActivity extends AppCompatActivity {
     public Uri getPhotoFileUri(String fileName) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File mediaStorageDir = new File(
-                    getExternalFilesDir(Environment.DIRECTORY_PICTURES), "PizzaInventory");
+                    getExternalFilesDir(Environment.DIRECTORY_PICTURES), getString(R.string.pizza_inventory));
             if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-                Log.d("PizzaInventory", "failed to create directory");
+                Log.d(getString(R.string.pizza_inventory), getString(R.string.no_directory));
             }
             return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
         }
@@ -54,9 +54,9 @@ public class EditorActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                picUri = getPhotoFileUri("product.jpg");
+                picUri = getPhotoFileUri(getString(R.string.picFile));
             } else {
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.no_picture, Toast.LENGTH_SHORT).show();
             }
         }
         else if(requestCode == 0 && resultCode == RESULT_OK && data != null) {
@@ -64,7 +64,7 @@ public class EditorActivity extends AppCompatActivity {
             int permissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE);
             if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Granted permisson", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.granted_permission, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -79,22 +79,22 @@ public class EditorActivity extends AppCompatActivity {
         String salesString = sales.getText().toString().trim();
         String photoString = picUri.toString();
         if (nameString == null || nameString.equals("")) {
-            throw new IllegalArgumentException("Name required");
+            throw new IllegalArgumentException(getString(R.string.name_required));
         }
         if (priceString == null || priceString.equals("")) {
-            throw new IllegalArgumentException("Valid price required");
+            throw new IllegalArgumentException(getString(R.string.price_required));
         }
         double priceNumber = Double.parseDouble(priceString);
         if (quantityString == null || quantityString.equals("")) {
-            throw new IllegalArgumentException("Valid quantity required");
+            throw new IllegalArgumentException(getString(R.string.quantity_required));
         }
         int quantityNumber = Integer.parseInt(quantityString);
         if (salesString == null || salesString.equals("")) {
-            throw new IllegalArgumentException("Valid sales required");
+            throw new IllegalArgumentException(getString(R.string.sales_required));
         }
         int salesNumber = Integer.parseInt(salesString);
         if(photoString == null || photoString.equals("")) {
-            throw new IllegalArgumentException("Valid photo required");
+            throw new IllegalArgumentException(getString(R.string.photo_required));
         }
         ContentValues cv = new ContentValues();
         cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME, nameString);
@@ -104,10 +104,10 @@ public class EditorActivity extends AppCompatActivity {
         cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PHOTO, photoString);
         Uri uri = getContentResolver().insert(PizzaContract.PizzaEntry.CONTENT_URI, cv);
         if(uri == null) {
-            Log.e("EditorActivity", "Error inserting product");
+            Log.e(getString(R.string.editor_activity), getString(R.string.inserting_product_error));
         }
         else {
-            Log.e("EditorActivity", "Inserted product");
+            Log.e(getString(R.string.editor_activity), getString(R.string.insert_product));
         }
         finish();
     }

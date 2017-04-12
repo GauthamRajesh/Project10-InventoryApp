@@ -14,7 +14,7 @@
         android:id="@+id/detail_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name: "
+        android:text="@string/name"
         style="@style/detailStyle"/>
     <TextView
         android:id="@+id/detail_name"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/detail_name_label"
-        android:text="Price: "
+        android:text="@string/price_detail"
         style="@style/detailStyle"/>
     <TextView
         android:id="@+id/detail_price"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         style="@style/detailStyle"
         android:layout_below="@id/detail_price_label"
-        android:text="Quantity: "/>
+        android:text="@string/quantity_detail"/>
     <TextView
         android:id="@+id/detail_quantity"
         android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         style="@style/detailStyle"
         android:layout_below="@id/detail_quantity_label"
-        android:text="Sold: "
+        android:text="@string/sold_detail"
         android:layout_marginTop="3dp"/>
 
     <TextView
@@ -76,7 +76,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image: "
+        android:text="@string/image"
         android:id="@+id/detail_image_label"
         style="@style/detailStyle"
         android:layout_below="@+id/detail_sold_label"
@@ -94,27 +94,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/detail_image_label"
-        android:text="Sale"
+        android:text="@string/sale"
         android:onClick="soldProduct"/>
     <Button
         android:id="@+id/shipment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Received Shipment"
+        android:text="@string/received_shipment"
         android:onClick="shipmentReceived"
         android:layout_below="@id/sale_product"/>
     <Button
         android:id="@+id/delete_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Product"
-        android:onClick="deleteProduct"
+        android:text="@string/delete_product"
+        android:onClick="showDeleteConfirmationDialog"
         android:layout_below="@id/shipment"/>
     <Button
         android:id="@+id/order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order More"
+        android:text="@string/order_more"
         android:onClick="orderProduct"
         android:layout_below="@id/delete_product"/>
 </RelativeLayout>

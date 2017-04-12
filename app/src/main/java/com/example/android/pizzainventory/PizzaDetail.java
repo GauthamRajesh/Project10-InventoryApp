@@ -1,5 +1,6 @@
 package com.example.android.pizzainventory;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,11 +8,13 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.pizzainventory.data.PizzaContract;
 
@@ -44,12 +47,12 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
             TextView price = (TextView) findViewById(R.id.detail_price);
             ImageView photo = (ImageView) findViewById(R.id.imageView);
             TextView sales = (TextView) findViewById(R.id.detail_sold);
-            name.setText(nameString);
-            quantity.setText(Integer.toString(quantityNum));
-            price.setText(Float.toString(priceNum));
+            name.setText(" " + nameString);
+            quantity.setText(" " + Integer.toString(quantityNum));
+            price.setText(" " + Float.toString(priceNum));
             String salesString = Integer.toString(salesNum);
             Log.e("PizzaDetail", "salesString: " + salesString);
-            sales.setText(Integer.toString(salesNum));
+            sales.setText(" " + Integer.toString(salesNum));
             Log.e("PizzaDetail", "photo Uri: " + photoString);
             if(!photoString.isEmpty()) {
                 photoUri = Uri.parse(photoString);
@@ -84,5 +87,66 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
             startActivity(intent);
         }
     }
-
+    public void showDeleteConfirmationDialog(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                deleteProduct();
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    private void deleteProduct() {
+        if (productUri != null) {
+            int rowsDeleted = getContentResolver().delete(productUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.sucessful, Toast.LENGTH_SHORT).show();
+            }
+            finish();
+        }
+    }
+    public void shipmentReceived(View v) {
+        int quantity = 0;
+        TextView quantityTextView = (TextView) findViewById(R.id.detail_quantity);
+        String quantityString = quantityTextView.getText().toString().trim();
+        if(!quantityString.isEmpty()) {
+            quantity = Integer.parseInt(quantityString);
+        }
+        quantity++;
+        quantityTextView.setText(String.valueOf(quantity));
+    }
+    public void soldProduct(View v) {
+        int quantity = 0;
+        int sold = 0;
+        TextView quantityTextView = (TextView) findViewById(R.id.detail_quantity);
+        TextView soldTextView = (TextView) findViewById(R.id.detail_sold);
+        String quantityString = quantityTextView.getText().toString().trim();
+        String soldString = soldTextView.getText().toString().trim();
+        if(!quantityString.isEmpty()) {
+            quantity = Integer.parseInt(quantityString);
+        }
+        if(!soldString.isEmpty()) {
+            sold = Integer.parseInt(soldString);
+        }
+        if(quantity == 0) {
+            Toast.makeText(this, R.string.no_products, Toast.LENGTH_LONG).show();
+            return;
+        }
+        quantity--;
+        sold++;
+        quantityTextView.setText(String.valueOf(quantity));
+        soldTextView.setText(String.valueOf(sold));
+    }
 }

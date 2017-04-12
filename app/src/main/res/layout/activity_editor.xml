@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="@string/category_overview"
+            android:text="@string/overview"
             style="@style/CategoryStyle" />
         <LinearLayout
             android:layout_height="wrap_content"
@@ -25,23 +25,23 @@
             android:orientation="vertical">
             <EditText
                 android:id="@+id/name"
-                android:hint="Product Name"
+                android:hint="@string/product_name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
             <EditText
                 android:id="@+id/quantity"
-                android:hint="Quantity"
+                android:hint="@string/quantity"
                 android:inputType="number"
                 style="@style/EditorFieldStyle" />
 
             <EditText
                 android:id="@+id/price"
-                android:hint="Price"
+                android:hint="@string/price"
                 style="@style/EditorFieldStyle"
                 android:inputType="numberDecimal"/>
             <EditText
                 android:id="@+id/sales"
-                android:hint="Sold"
+                android:hint="@string/sold"
                 style="@style/EditorFieldStyle"
                 android:inputType="number"/>
         </LinearLayout>
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="Picture"
+            android:text="@string/picture"
             style="@style/CategoryStyle" />
         <LinearLayout
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:layout_marginTop="10dp"
-        android:text="Save"
+        android:text="@string/save"
         android:onClick="saveProduct">
     </Button>
     </LinearLayout>
