@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -77,24 +78,36 @@ public class EditorActivity extends AppCompatActivity {
         String quantityString = quantity.getText().toString().trim();
         String priceString = price.getText().toString().trim();
         String salesString = sales.getText().toString().trim();
-        String photoString = picUri.toString();
-        if (nameString == null || nameString.equals("")) {
-            throw new IllegalArgumentException(getString(R.string.name_required));
+        String photoString = "";
+        if(!TextUtils.isEmpty(picUri.toString())) {
+            photoString = picUri.toString();
         }
-        if (priceString == null || priceString.equals("")) {
-            throw new IllegalArgumentException(getString(R.string.price_required));
+        if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, "Need a name", Toast.LENGTH_LONG).show();
+        }
+        if (TextUtils.isEmpty(priceString)) {
+            Toast.makeText(this, "Need a price", Toast.LENGTH_LONG).show();
         }
         double priceNumber = Double.parseDouble(priceString);
-        if (quantityString == null || quantityString.equals("")) {
-            throw new IllegalArgumentException(getString(R.string.quantity_required));
+        if(priceNumber < 0) {
+            Toast.makeText(this, "Need a positive price", Toast.LENGTH_LONG).show();
+        }
+        if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(this, "Need a quantity", Toast.LENGTH_LONG).show();
         }
         int quantityNumber = Integer.parseInt(quantityString);
-        if (salesString == null || salesString.equals("")) {
-            throw new IllegalArgumentException(getString(R.string.sales_required));
+        if(quantityNumber < 0) {
+            Toast.makeText(this, "Need a positive quantity", Toast.LENGTH_LONG).show();
+        }
+        if (TextUtils.isEmpty(salesString)) {
+            Toast.makeText(this, "Need sales", Toast.LENGTH_LONG).show();
         }
         int salesNumber = Integer.parseInt(salesString);
-        if(photoString == null || photoString.equals("")) {
-            throw new IllegalArgumentException(getString(R.string.photo_required));
+        if(salesNumber < 0) {
+            Toast.makeText(this, "Need positive sales", Toast.LENGTH_LONG).show();
+        }
+        if(TextUtils.isEmpty(photoString)) {
+            Toast.makeText(this, "Need a photo", Toast.LENGTH_LONG).show();
         }
         ContentValues cv = new ContentValues();
         cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME, nameString);
