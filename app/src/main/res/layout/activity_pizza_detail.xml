@@ -53,26 +53,6 @@
         android:layout_below="@id/detail_price_label"
         tools:text="Quantity"
         style="@style/detailStyle"/>
-    <Button
-        android:id="@+id/increaseProduct"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignBaseline="@+id/detail_quantity"
-        android:layout_alignBottom="@+id/detail_quantity"
-        android:layout_toRightOf="@+id/detail_quantity"
-        android:layout_toEndOf="@+id/detail_quantity"
-        android:onClick="addProduct"
-        android:text="+"/>
-    <Button
-        android:id="@+id/decreaseProduct"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/increaseProduct"
-        android:layout_toEndOf="@+id/increaseProduct"
-        android:layout_alignBaseline="@+id/detail_quantity"
-        android:layout_alignBottom="@+id/detail_quantity"
-        android:onClick="removeProduct"
-        android:text="-"/>
     <TextView
         android:id="@+id/detail_sold_label"
         android:layout_width="wrap_content"
@@ -80,7 +60,7 @@
         style="@style/detailStyle"
         android:layout_below="@id/detail_quantity_label"
         android:text="Sold: "
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="3dp"/>
 
     <TextView
         android:id="@+id/detail_sold"
@@ -94,8 +74,8 @@
         android:layout_toEndOf="@+id/detail_sold_label" />
 
     <TextView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Image: "
         android:id="@+id/detail_image_label"
         style="@style/detailStyle"
@@ -109,4 +89,32 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/detail_image_label"
         android:layout_toRightOf="@id/detail_image_label" />
+    <Button
+        android:id="@+id/sale_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_image_label"
+        android:text="Sale"
+        android:onClick="soldProduct"/>
+    <Button
+        android:id="@+id/shipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Received Shipment"
+        android:onClick="shipmentReceived"
+        android:layout_below="@id/sale_product"/>
+    <Button
+        android:id="@+id/delete_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Product"
+        android:onClick="deleteProduct"
+        android:layout_below="@id/shipment"/>
+    <Button
+        android:id="@+id/order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order More"
+        android:onClick="orderProduct"
+        android:layout_below="@id/delete_product"/>
 </RelativeLayout>

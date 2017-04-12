@@ -1,5 +1,6 @@
 package com.example.android.pizzainventory;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,6 +75,14 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
     }
+    public void orderProduct(View v) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.order_more_string));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
 }
