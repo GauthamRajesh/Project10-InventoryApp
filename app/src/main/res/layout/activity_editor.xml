@@ -77,7 +77,8 @@
                 android:layout_marginRight="12dp"
                 android:id="@+id/camerapic"
                 android:layout_weight="0.16"
-                android:onClick="takePic"/>
+                android:onClick="takePic"
+                />
         </LinearLayout>
     </LinearLayout>
     <Button

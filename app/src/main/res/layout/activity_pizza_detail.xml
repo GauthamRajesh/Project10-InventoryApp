@@ -87,34 +87,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/detail_image_label"
-        android:layout_toRightOf="@id/detail_image_label" />
-    <Button
-        android:id="@+id/sale_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detail_image_label"
-        android:text="@string/sale"
-        android:onClick="soldProduct"/>
-    <Button
-        android:id="@+id/shipment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/received_shipment"
-        android:onClick="shipmentReceived"
-        android:layout_below="@id/sale_product"/>
-    <Button
-        android:id="@+id/delete_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_product"
-        android:onClick="showDeleteConfirmationDialog"
-        android:layout_below="@id/shipment"/>
-    <Button
-        android:id="@+id/order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_more"
-        android:onClick="orderProduct"
-        android:layout_below="@id/delete_product"/>
+        android:layout_below="@id/detail_sold"
+        android:layout_toRightOf="@id/detail_image_label"
+        android:layout_marginTop="14dp" />
 </RelativeLayout>

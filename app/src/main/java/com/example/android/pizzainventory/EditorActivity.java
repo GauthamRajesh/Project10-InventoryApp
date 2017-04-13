@@ -8,12 +8,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.pizzainventory.data.PizzaContract;
@@ -27,6 +30,38 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+        requestPermissions();
+    }
+    private void requestPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            if(!(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+            }
+        } else {
+            ImageView btnPhoto = (ImageView) findViewById(R.id.camerapic);
+            btnPhoto.setEnabled(true);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case 1:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    ImageView btnPhoto = (ImageView) findViewById(R.id.camerapic);
+                    btnPhoto.setEnabled(true);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+        }
     }
     public void getPic(View v) {
         Intent i = new Intent(Intent.ACTION_PICK,
@@ -62,11 +97,6 @@ public class EditorActivity extends AppCompatActivity {
         }
         else if(requestCode == 0 && resultCode == RESULT_OK && data != null) {
             picUri = data.getData();
-            int permissionCheck = ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE);
-            if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, R.string.granted_permission, Toast.LENGTH_SHORT).show();
-            }
         }
     }
     public void saveProduct(View v) {
@@ -79,35 +109,45 @@ public class EditorActivity extends AppCompatActivity {
         String priceString = price.getText().toString().trim();
         String salesString = sales.getText().toString().trim();
         String photoString = "";
-        if(!TextUtils.isEmpty(picUri.toString())) {
-            photoString = picUri.toString();
+        if(picUri != null) {
+            if(!TextUtils.isEmpty(picUri.toString())) {
+                photoString = picUri.toString();
+            }
         }
         if (TextUtils.isEmpty(nameString)) {
             Toast.makeText(this, "Need a name", Toast.LENGTH_LONG).show();
+            return;
         }
         if (TextUtils.isEmpty(priceString)) {
             Toast.makeText(this, "Need a price", Toast.LENGTH_LONG).show();
+            return;
         }
         double priceNumber = Double.parseDouble(priceString);
         if(priceNumber < 0) {
             Toast.makeText(this, "Need a positive price", Toast.LENGTH_LONG).show();
+            return;
         }
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(this, "Need a quantity", Toast.LENGTH_LONG).show();
+            return;
         }
         int quantityNumber = Integer.parseInt(quantityString);
         if(quantityNumber < 0) {
             Toast.makeText(this, "Need a positive quantity", Toast.LENGTH_LONG).show();
+            return;
         }
         if (TextUtils.isEmpty(salesString)) {
             Toast.makeText(this, "Need sales", Toast.LENGTH_LONG).show();
+            return;
         }
         int salesNumber = Integer.parseInt(salesString);
         if(salesNumber < 0) {
             Toast.makeText(this, "Need positive sales", Toast.LENGTH_LONG).show();
+            return;
         }
         if(TextUtils.isEmpty(photoString)) {
             Toast.makeText(this, "Need a photo", Toast.LENGTH_LONG).show();
+            return;
         }
         ContentValues cv = new ContentValues();
         cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME, nameString);
