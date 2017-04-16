@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.pizzainventory.data.PizzaContract;
+
+import java.io.IOException;
 
 public class PizzaDetail extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -56,7 +59,12 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
             Log.e("PizzaDetail", "photo Uri: " + photoString);
             if(!photoString.isEmpty()) {
                 photoUri = Uri.parse(photoString);
-                photo.setImageURI(photoUri);
+                try {
+                    photo.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri));
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

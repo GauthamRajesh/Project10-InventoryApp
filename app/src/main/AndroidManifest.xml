@@ -25,7 +25,17 @@
             android:exported="false" />
 
         <activity android:name=".EditorActivity" />
-        <activity android:name=".PizzaDetail"></activity>
+        <activity android:name=".PizzaDetail" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.pizza"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     </application>
 
 </manifest>
