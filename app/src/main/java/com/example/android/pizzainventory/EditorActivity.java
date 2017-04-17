@@ -95,6 +95,7 @@ public class EditorActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "File: " + f.getAbsolutePath());
             mUri = FileProvider.getUriForFile(
                     this, FILE_PROVIDER_AUTHORITY, f);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                 List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
                 for (ResolveInfo resolveInfo : resInfoList) {

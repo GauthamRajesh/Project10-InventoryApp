@@ -41,4 +41,5 @@
     <string name="editor_activity">EditorActivity</string>
     <string name="inserting_product_error">Error inserting product</string>
     <string name="insert_product">Inserted product</string>
+    <string name="sales_column_index">Sales</string>
 </resources>
