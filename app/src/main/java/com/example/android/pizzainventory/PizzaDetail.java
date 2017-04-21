@@ -1,11 +1,11 @@
 package com.example.android.pizzainventory;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -18,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.pizzainventory.data.PizzaContract;
-
-import java.io.IOException;
 
 public class PizzaDetail extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -59,12 +57,7 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
             Log.e("PizzaDetail", "photo Uri: " + photoString);
             if(!photoString.isEmpty()) {
                 photoUri = Uri.parse(photoString);
-                try {
-                    photo.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri));
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
+                photo.setImageURI(photoUri);
             }
         }
     }
@@ -156,5 +149,40 @@ public class PizzaDetail extends AppCompatActivity implements LoaderManager.Load
         sold++;
         quantityTextView.setText(String.valueOf(quantity));
         soldTextView.setText(String.valueOf(sold));
+    }
+    public void showSaveConfirmationDialog(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to save your changes?");
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                saveProduct();
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    private void saveProduct() {
+        TextView name = (TextView) findViewById(R.id.detail_name);
+        TextView price  = (TextView) findViewById(R.id.detail_price);
+        TextView quantity = (TextView) findViewById(R.id.detail_quantity);
+        TextView sales = (TextView) findViewById(R.id.detail_sold);
+        ContentValues cv = new ContentValues();
+        cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_NAME, name.getText().toString());
+        cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PRICE, price.getText().toString());
+        cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_QUANTITY, quantity.getText().toString());
+        cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_SALES, sales.getText().toString());
+        cv.put(PizzaContract.PizzaEntry.COLUMN_PRODUCT_PHOTO, photoUri.toString());
+        int rows = getContentResolver().update(productUri, cv, null, null);
+        if(rows == 0) {
+            Toast.makeText(getApplicationContext(), "Save Unsuccessful", Toast.LENGTH_LONG).show();
+        }
     }
 }
